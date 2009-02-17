@@ -32,7 +32,9 @@ j() {
    }
   ' $jfile 2>/dev/null > $jfile.tmp
   mv $jfile.tmp $jfile
- elif [ "$1" = "" -o "$1" = "--l" ];then
+ elif [ "$1" = "" ];then
+  j ~
+ elif [ "$1" = "--l" ];then
   shift
   awk -v q="$*" -F"|" '
    BEGIN { split(q,a," ") }
