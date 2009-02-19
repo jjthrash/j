@@ -8,7 +8,7 @@ inc() {
 }
 
 add_or_inc() {
-  if grep -w `pwd` ~/.j
+  if grep -wq `pwd` ~/.j
   then
     inc
   else
