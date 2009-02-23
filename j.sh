@@ -78,10 +78,9 @@ j() {
       echo no directory found matching: $*
     fi
   else
-    shift
     if choose_dir $*
     then
-      builtin cd $(choose_dir $*)
+      builtin cd $RET
       inc
     else
       echo no directory found matching: $*
@@ -90,4 +89,4 @@ j() {
 }
 
 shopt -s progcomp
-complete -F j_complete -o dirnames cd
+complete -F j_complete cd
