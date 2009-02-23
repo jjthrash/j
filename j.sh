@@ -40,13 +40,18 @@ choose_dir() {
 }
 
 j_complete() {
-  COMPREPLY=()
-  if choose_dir ${COMP_WORDS[COMP_CWORD]}
+  if [ "${COMP_WORDS[COMP_CWORD]}" = "" ]
   then
-    COMPREPLY=($RET)
-    return 0
-  else
     return 1
+  else
+    COMPREPLY=()
+    if choose_dir ${COMP_WORDS[COMP_CWORD]}
+    then
+      COMPREPLY=($RET)
+      return 0
+    else
+      return 1
+    fi
   fi
 }
 
