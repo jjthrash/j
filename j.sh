@@ -17,7 +17,7 @@ add_or_inc() {
 }
 
 grep_all() {
-  if [ "$*" == "" ]
+  if [ "$*" = "" ]
   then
     cat -
   else
@@ -27,14 +27,28 @@ grep_all() {
   fi
 }
 
-choose_dir() {
+choose_dirs() {
+  RET=""
   for dir in `cat ~/.j | grep_all $* | sort -nr | uniq | cut -d" " -f2`
   do
     if [ -d $dir ]
     then
-      RET=$dir
-      return 0
+      RET="$RET$dir "
     fi
+  done
+  if [ "$RET" = "" ]
+  then
+    return 1
+  else
+    return 0
+  fi
+}
+
+choose_dir() {
+  for dir in choose_dirs $*
+  do
+    RET=$dir
+    return 0
   done
   return 1
 }
@@ -45,9 +59,12 @@ j_complete() {
     return 1
   else
     COMPREPLY=()
-    if choose_dir ${COMP_WORDS[COMP_CWORD]}
+    if choose_dirs ${COMP_WORDS[COMP_CWORD]}
     then
-      COMPREPLY=($RET)
+      for dir in $RET
+      do
+        COMPREPLY=(${COMPREPLY} $dir)
+      done
       return 0
     else
       return 1
