@@ -89,4 +89,4 @@ j() {
 }
 
 shopt -s progcomp
-complete -F j_complete cd
+complete -F j_complete -o dirnames cd
