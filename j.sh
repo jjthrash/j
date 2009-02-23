@@ -45,12 +45,17 @@ choose_dirs() {
 }
 
 choose_dir() {
-  for dir in choose_dirs $*
-  do
-    RET=$dir
-    return 0
-  done
-  return 1
+  if choose_dirs $*
+  then
+    for dir in $RET
+    do
+      RET=$dir
+      return 0
+    done
+    return 1
+  else
+    return 1
+  fi
 }
 
 j_complete() {
@@ -112,3 +117,4 @@ j() {
 
 shopt -s progcomp
 complete -F j_complete -o dirnames cd
+alias cd=j
