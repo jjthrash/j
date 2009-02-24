@@ -115,6 +115,6 @@ j() {
   fi
 }
 
-shopt -s progcomp
-complete -F j_complete -o dirnames cd
+# shopt -s progcomp
+# complete -o dirnames -F j_complete cd
 alias cd=j
