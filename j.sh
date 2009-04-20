@@ -8,11 +8,12 @@ inc() {
 }
 
 add_or_inc() {
-  if grep -wq `pwd` ~/.j
+  p=`pwd`
+  if grep -wq "$p" ~/.j
   then
     inc
   else
-    echo 1 `pwd` >> ~/.j
+    echo 1 $p >> ~/.j
   fi
 }
 
@@ -29,9 +30,9 @@ grep_all() {
 
 choose_dirs() {
   RET=""
-  for dir in `cat ~/.j | grep_all $* | sort -nr | uniq | cut -d" " -f2`
+  for dir in `cat ~/.j | grep_all $* | sort -nr | uniq | cut -d" " -f2-`
   do
-    if [ -d $dir ]
+    if [ -d "$dir" ]
     then
       RET="$RET$dir "
     fi
@@ -83,16 +84,16 @@ j() {
   if [ "$*" = "" ]
   then
     builtin cd
-  elif [ -d $1 -o "$1" = "-" ]
+  elif [ -d "$1" -o "$1" = "-" ]
   then
-    builtin cd $1
+    builtin cd "$1"
     add_or_inc
   elif [ "$1" = "-l" ]
   then
     sort -nr ~/.j
   elif [ "$1" = "-h" ]
   then
-    echo "usage: cd [-s] [-l] [dir]"
+    echo "usage: cd [-s] [-l] [regex*]"
     echo "  -s   -- show selected directory, but don't actually change directories"
     echo "  -l   -- show directory history"
   elif [ "$1" = "-s" ]

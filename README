@@ -8,4 +8,5 @@ USE:
   cd [-l] [regex1 ... regexn]
     regex1 ... regexn jump to the most used directory matching all masks
     -l                show the list instead of jumping
+    -s                show matched directory, but do not actually cd
                       with no args, go to home directory
