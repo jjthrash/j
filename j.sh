@@ -9,7 +9,7 @@ inc() {
 
 add_or_inc() {
   p=`pwd`
-  if grep -wq "^\\d+\\s$p\$" ~/.j
+  if grep -q "^\\d+\\s$p\$" ~/.j
   then
     inc
   else
