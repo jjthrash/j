@@ -91,11 +91,16 @@ j() {
   elif [ "$1" = "-l" ]
   then
     sort -nr ~/.j
+  elif [ "$1" = "-n" ]
+  then
+    echo -n 'Total cds: '
+    awk 'BEGIN { tot = 0 }; { tot = tot + $1 }; END { print tot }' < ~/.j
   elif [ "$1" = "-h" ]
   then
     echo "usage: cd [-s] [-l] [regex*]"
     echo "  -s   -- show selected directory, but don't actually change directories"
     echo "  -l   -- show directory history"
+    echo "  -n   -- show total cds since counting began"
   elif [ "$1" = "-s" ]
   then
     shift
