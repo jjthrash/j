@@ -1,10 +1,13 @@
 #!/bin/bash
 
 inc() {
-  perl -pi -e '
-    ($n, $d) = split /\s/;
+  exp='
+    ($n, $d) = split /\s/, $_, 2;
+    chomp $d;
     $_ = ($n+1) . " $d\n" if $d eq "'`pwd`'";
-  ' ~/.j
+  '
+
+  perl -pi -e "$exp" ~/.j
 }
 
 add_or_inc() {
